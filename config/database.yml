@@ -49,6 +49,9 @@ test:
 #
 production:
   <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: locom_production
   username: locom
   password: <%= ENV['LOCOM_DATABASE_PASSWORD'] %>
