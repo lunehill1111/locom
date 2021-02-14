@@ -29,7 +29,8 @@ class Account < ApplicationRecord
   end
 
   def requesting?(other_account)
-    if Request.where(account_id: self.id, requested_id: other_account.id).select("status") == 1
+    requesting = Request.where(account_id: self.id, requested_id: other_account.id)
+    if requesting.select("status") == 1
       return 1
     else
       return 0
@@ -37,7 +38,8 @@ class Account < ApplicationRecord
   end
   
   def rejected?
-    if Request.where(account_id: self.id, requested_id: other_account.id).select("status") == 0
+    rejected = Request.where(account_id: self.id, requested_id: other_account.id)
+    if rejected == 0
       return 1
     else 
       return 0

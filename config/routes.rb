@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  root to: 'toppages#index'
   post 'requests/destroy'
   get 'participates/create'
   get 'participates/index'
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get 'sessions/create'
   get 'sessions/destroy'
   get 'toppages/index'
-  root to: 'toppages#index'
+  
   
   post 'register', to: 'users#register'
   
