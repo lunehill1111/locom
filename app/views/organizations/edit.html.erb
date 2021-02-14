@@ -1,0 +1,47 @@
+
+<div class="row">
+        <h1>基本情報</h1>
+        <%= form_with(model: organization, local: true) do |f| %>
+          <div class="form-group">
+          <%= f.label :name, '会社名' %>
+          <%= f.text_field :name, class: 'form-control' %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :segment_name, '部門名' %>
+          <%= f.text_field :segment_name, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+          <%= f.label :prefecture, '' %>
+          <%= f.text_field :password_digest, class: 'form-control' %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :, '市町村' %>
+          <%= f.text_field :city, class: 'form-control' %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :, '町丁目' %>
+          <%= f.text_field :place, class: 'form-control' %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :, 'ビル名' %>
+          <%= f.text_field :building, class: 'form-control' %>
+          </div>
+          
+          <%= f.submit '更新', class: 'btn btn-primary'%>
+        <% end %>
+
+
+        <h1>管理者</h1>
+        <div class="list-group">
+        <% current_organization.accounts.each do |account| %>
+        <%= check_box :account, :administratible, true, false >
+        <%= label_tag :account, account.users.name %>
+        <% end %>            
+        </div>
+
+</div>

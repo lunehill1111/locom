@@ -1,0 +1,52 @@
+<div class="row">
+    <aside class="col-sm-6">
+        <h1>個人情報</h1>
+        <%= form_with(model: @user, local: true) do |f| %>
+          <div class="form-group">
+          <%= f.label :name, '名前' %>
+          <%= f.text_field :name, class: 'form-control', value: @name %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :email, 'Eメールアドレス' %>
+          <%= f.text_field :email, class: 'form-control', value: @email %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :password_digest, 'パスワード' %>
+          <%= f.text_field :password_digest, class: 'form-control'  %>
+          </div>  
+
+          <div class="form-group">
+          <%= f.label :prefecture, '都道府県' %>
+          <%= f.text_field :password_digest, class: 'form-control', value: @prefecture %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :city, '市町村' %>
+          <%= f.text_field :city, class: 'form-control', value: @city %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :place, '町丁目' %>
+          <%= f.text_field :place, class: 'form-control', value: @place %>
+          </div>
+          
+          <div class="form-group">
+          <%= f.label :building, 'ビル名' %>
+          <%= f.text_field :building, class: 'form-control', value: @building %>
+          </div>
+          
+          <%= f.submit '更新', class: 'btn btn-primary', method: :get %>
+        <% end %>
+    </aside>
+    <div class="col-sm-6">
+        <h1>所属グループ</h1>
+        <div class="list-group">
+        <% current_user.accounts.each do |account| %>
+        <%= account.organization.name + account.organization.segment_name %>
+        <%= link_to "削除", account, method: :delete, class: 'btn btn-danger btn-sm' %> 
+         <% end %>            
+        </div>
+    </div>
+</div>

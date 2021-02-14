@@ -1,0 +1,14 @@
+<div class="row">
+  <aside class="col-sm-6">
+    <div class="list-group">
+        <% current_account.rooms.each do |room| %>
+         <a href= message_path(@room) class="list-group-item list-group-item-action">
+             <img class="rounded img-fluid" src="<%= gravatar_url(room, { size: 50 }) %>" alt="">
+             <%= room.account.user.name %>
+         </a>
+         <% end %>
+
+    </div>      
+  </aside>
+  <%= render 'messages/messages', messages: @messages %>
+</div>

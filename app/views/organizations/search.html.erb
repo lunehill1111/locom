@@ -1,0 +1,26 @@
+<div class="text-center">
+  <h1>所属組織検索</h1>
+</div>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+<%= form_with url: search_organizations_path, method: :get, local: true do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit :search %>
+<% end %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>会社名</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @organizations.each do |organization| %>
+        <tr>
+          <td><%= link_to organization.name, accounts_create_path(account: {user_id: current_user.id, organization_id: organization.id, administratible: false}),method: :post  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to '検索結果がない場合', {:controller => "organizations", :action => "searchtonew", :id =>current_user.id}, class: 'btn btn-light' %>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="row">
+    <aside class="col-sm-6">
+      <h2>リクエストを出す</h2>
+      <p>つながりたい人を名前や地域名、組織名で検索してください</p>
+        <%= form_with url: search_accounts_path, method: :get, local: true do |f| %>
+          <%= f.text_field :name %>
+          <%= f.submit :search %>
+        <% end %>
+            <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>検索結果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @accounts.each do |account| %>
+            <tr>
+              <td>
+              <%= account.organization.name + account.organization.segment_name %> </td>
+              <td><%= button_to "リクエスト", {controller: 'requests', action: 'create'}, {method: :post, params: {requested_id: account.id}} %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </aside>
+    <div class="col-sm-6">
+      <h2>リクエスト</h2>
+      <p>以下の人からリクエストが届いています</p>
+      <div class="list-group"> 
+        <table class="table">
+          <% current_account.requested.each do |account| %>
+          <tr>
+            <td><%= account.organization.name + account.organization.segment_name %></td> 
+            <td><%= button_to "承認", accept_accounts_path(current_account), {method: :post, params: {requested_id: account.id}} %></td>
+            <td><%= button_to "却下", reject_accounts_path(current_account), {method: :post, params: {requested_id: account.id}} %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+      <h2>以下の人へリクエストを送っています</h2>
+          <% current_account.requestings.each do |account| %>
+          <tr>
+            <td><%= account.organization.name + account.organization.segment_name %></td> 
+            <td><% if current_account.requesting?(account)  %>
+            未承認
+            <% elsif current_account.rejected?(account)  %>
+            却下
+            <% else %>
+            <% end %>
+
+            </td>
+            <td>
+              <%= button_to "削除", requests_destroy_path, {method: :post, params: {requested_id: account.id}} %>
+            </td>
+          </tr>
+          <% end %>      
+    </div>
+</div>

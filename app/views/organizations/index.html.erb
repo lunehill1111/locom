@@ -1,0 +1,25 @@
+<div class="col-sm">
+<% @organizations.each do |organization| %>
+  <table class="table">
+  <tr><td>名前</td><td><%= organization.name %><%= organization.segment_name %></td></tr>
+  <tr><td>住所</td><td><%= organization.prefecture %><%= organization.city %><%= organization.place %><%= organization.building %></td></tr>
+  <tr>
+  <td>管理者</td>
+
+  <td>
+  <% organization.accounts.each do |account| %>
+  <%= account.administrator >
+  <% end %> 
+  </td>
+      </tr>
+  </table>
+  <%= link_to '更新', edit_organization_path, class: 'btn btn-light' %>
+<% end %>
+<%= paginate messages %>
+
+<%= link_to '新しく登録する', search_organization_path, class: 'btn btn-light' %>
+</div>
+
+
+
+
